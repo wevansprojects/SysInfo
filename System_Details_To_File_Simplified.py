@@ -2,19 +2,21 @@ import subprocess
 import psutil
 import platform
 import csv
-import os
-
 from datetime import datetime
+import os
 
 
 class systemDetails():
     """ Constructor and initializing the class """
 
     def __init__(self):
-        self.uname = platform.uname()
-        self.systemdetails = [self.uname.system, self.uname.node,
-        self.ipaddr, self.uname.release, self.uname.machine,
-        self.cpucorecount, self.cpuusge, self.raminGB, self.raminuse, self.bt, self.uptime]
+
+        """ System Headings  """
+        self.headings = ['System:', 'Host Name:',
+                          'IP Address:', 'Kernel:',
+                          'Architecture:', 'CPU Cores',
+                          'CPU Usage:', 'Total RAM:',
+                          'RAM Usage:', 'Last Reboot:', 'UpTime:']
 
     def generate_html(self):
 
@@ -24,7 +26,7 @@ class systemDetails():
         self.ps.wait()
 
         # Remove any white space or invalid characters
-        ipaddr = str(self.output, 'utf-8').strip('\n')
+        self.ipaddr = str(self.output, 'utf-8').strip('\n')
 
         """ Last Reboot Time """
         self.boot_time_timestamp = psutil.boot_time()
@@ -57,12 +59,11 @@ class systemDetails():
         self.cpuusge = str(self.getcpu)
         self.cpuusge = self.cpuusge + '%'
 
-        """ System Headings  """
-        headings = ['System:', 'Host Name:',
-                          'IP Address:', 'Kernel:',
-                          'Architecture:', 'CPU Cores',
-                          'CPU Usage:', 'Total RAM:',
-                          'RAM Usage:', 'Last Reboot:', 'UpTime:']
+
+        self.uname = platform.uname()
+        self.systemdetails = [self.uname.system, self.uname.node,
+        self.ipaddr, self.uname.release, self.uname.machine,
+        self.cpucorecount, self.cpuusge, self.raminGB, self.raminuse, self.bt, self.uptime]
 
         """Create the html file cycling through the headings and data """
         with open("System_Details.html", "w") as html_file:
@@ -73,7 +74,7 @@ class systemDetails():
             print("</style>", file=html_file)
             print("<table>", file=html_file)
 
-            for title, data in zip(headings, self.systemdetails):
+            for title, data in zip(self.headings, self.systemdetails):
                 print(f"<tr><th>{title}</th><td>{data}</td></td>", file=html_file)
 
             print("</table>", file=html_file)
@@ -85,7 +86,7 @@ class systemDetails():
             with open('systemdetails.csv', 'w', encoding='UTF8') as f:
                 writer = csv.writer(f)
                 # write system headings
-                writer.writerow(headings)
+                writer.writerow(self.headings)
                 # write systemdetails
                 writer.writerow(self.systemdetails)
                 f.close()
