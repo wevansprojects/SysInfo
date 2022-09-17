@@ -7,7 +7,7 @@ import os
 from datetime import datetime
 
 
-class System_Details_Simple():
+class systemDetails():
     """ Constructor and initializing the class """
 
     def generate_html(self):

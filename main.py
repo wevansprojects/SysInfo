@@ -1,6 +1,6 @@
 from System_Details import System_Details
 #from System_Details_To_File import System_Details_To_file
-from System_Details_To_File_Simplified import System_Details_Simple
+from System_Details_To_File_Simplified import systemDetails
 
 # Main Function to print system details
 def main():
@@ -16,7 +16,7 @@ def main():
 #    sysinfotohtml.generate_html()
 
     """Create HTML File of System Details """
-    sysinfosimple = System_Details_Simple()
+    sysinfosimple = systemDetails()
     sysinfosimple.generate_html()
 
 if __name__ == "__main__":
