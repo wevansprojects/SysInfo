@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 
-class systemDetails():
+class SystemDetails:
     """ Constructor and initializing the class """
 
     def __init__(self):
