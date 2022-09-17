@@ -59,7 +59,6 @@ class systemDetails():
         self.cpuusge = str(self.getcpu)
         self.cpuusge = self.cpuusge + '%'
 
-
         self.uname = platform.uname()
         self.systemdetails = [self.uname.system, self.uname.node,
         self.ipaddr, self.uname.release, self.uname.machine,
