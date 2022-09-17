@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 class systemDetails():
-    """ Constructor and initializing the class """
+    """ Constructor and initializing class """
 
     def generate_html(self):
         """Generic System Information"""
