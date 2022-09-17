@@ -5,7 +5,6 @@ import csv
 from datetime import datetime
 
 
-
 class SystemDetails:
     """ Constructor and initializing the class """
 
