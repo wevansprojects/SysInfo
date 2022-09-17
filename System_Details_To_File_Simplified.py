@@ -12,7 +12,7 @@ class System_Details_Simple():
     def generate_html(self):
         """Generic System Information"""
         self.uname = platform.uname()
-        # self.extractips = subprocess.check_output(['hostname', '--all-ip-addresses'])
+        # #self.extractips = subprocess.check_output(['hostname', '--all-ip-addresses'])
 
         """ Extract IP4 Address with the subprocess libary """
         self.ps = subprocess.Popen(('hostname', '--all-ip-addresses'), stdout=subprocess.PIPE)
