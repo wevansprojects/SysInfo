@@ -2,20 +2,25 @@ import subprocess
 import psutil
 import platform
 import csv
-import os
-
 from datetime import datetime
+import os
 
 
 class systemDetails():
     """ Constructor and initializing the class """
 
-    def generate_html(self):
-        """Generic System Information"""
-        self.uname = platform.uname()
-        # self.extractips = subprocess.check_output(['hostname', '--all-ip-addresses'])
+    def __init__(self):
 
-        """ Extract IP4 Address with the subprocess libary """
+        """ System Headings  """
+        self.headings = ['System:', 'Host Name:',
+                          'IP Address:', 'Kernel:',
+                          'Architecture:', 'CPU Cores',
+                          'CPU Usage:', 'Total RAM:',
+                          'RAM Usage:', 'Last Reboot:', 'UpTime:']
+
+    def generate_html(self):
+
+        """ Extract IP4 Address with the subprocess library """
         self.ps = subprocess.Popen(('hostname', '--all-ip-addresses'), stdout=subprocess.PIPE)
         self.output = subprocess.check_output(('cut', '-d', ' ', '-f', '1'), stdin=self.ps.stdout)
         self.ps.wait()
@@ -48,24 +53,17 @@ class systemDetails():
         # print(f"Ram Available: {self.getmem}")
         self.raminuse = "%.2f" % self.raminuse + '%'
 
-        # CPU Percentage Usage
+        """ CPU Percentage Usage """
         self.cpucorecount = psutil.cpu_count(logical=True)
         self.getcpu = psutil.cpu_percent(1)
         self.cpuusge = str(self.getcpu)
         self.cpuusge = self.cpuusge + '%'
 
-        """ System Headings  """
-        systemheadings = ['System:', 'Host Name:',
-                          'IP Address:', 'Kernel:',
-                          'Architecture:', 'CPU Cores',
-                          'CPU Usage:', 'Total RAM:',
-                          'RAM Usage:', 'Last Reboot:', 'UpTime:']
-
-        """ Extracted List of information """
-        self.systemdetails = [self.uname.system, self.uname.node, self.ipaddr,
-                              self.uname.release, self.uname.machine, self.cpucorecount,
-                              self.cpuusge, self.raminGB,
-                              self.raminuse, self.bt, self.uptime]
+        """ Extract the system information to a list """
+        self.uname = platform.uname()
+        self.systemdetails = [self.uname.system, self.uname.node,
+        self.ipaddr, self.uname.release, self.uname.machine,
+        self.cpucorecount, self.cpuusge, self.raminGB, self.raminuse, self.bt, self.uptime]
 
         """Create the html file cycling through the headings and data """
         with open("System_Details.html", "w") as html_file:
@@ -76,7 +74,7 @@ class systemDetails():
             print("</style>", file=html_file)
             print("<table>", file=html_file)
 
-            for title, data in zip(systemheadings, self.systemdetails):
+            for title, data in zip(self.headings, self.systemdetails):
                 print(f"<tr><th>{title}</th><td>{data}</td></td>", file=html_file)
 
             print("</table>", file=html_file)
@@ -88,7 +86,7 @@ class systemDetails():
             with open('systemdetails.csv', 'w', encoding='UTF8') as f:
                 writer = csv.writer(f)
                 # write system headings
-                writer.writerow(systemheadings)
+                writer.writerow(self.headings)
                 # write systemdetails
                 writer.writerow(self.systemdetails)
                 f.close()

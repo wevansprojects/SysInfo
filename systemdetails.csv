@@ -1,2 +1,2 @@
 System:,Host Name:,IP Address:,Kernel:,Architecture:,CPU Cores,CPU Usage:,Total RAM:,RAM Usage:,Last Reboot:,UpTime:
-Linux,pop-os,192.168.68.118,5.19.0-76051900-generic,x86_64,8,6.9%,7.45GB,91.42%,2022-09-17 11:54:42," 16:06:25 up  4:11,  1 user,  load average: 1.02, 1.39, 1.00"
+Linux,pop-os,192.168.68.118,5.19.0-76051900-generic,x86_64,8,0.9%,7.45GB,43.27%,2022-09-17 16:14:20," 18:18:14 up  2:03,  1 user,  load average: 0.77, 0.73, 0.54"
