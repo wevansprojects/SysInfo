@@ -20,7 +20,7 @@ class systemDetails():
 
     def generate_html(self):
 
-        """ Extract IP4 Address with the subprocess libary """
+        """ Extract IP4 Address with the subprocess library """
         self.ps = subprocess.Popen(('hostname', '--all-ip-addresses'), stdout=subprocess.PIPE)
         self.output = subprocess.check_output(('cut', '-d', ' ', '-f', '1'), stdin=self.ps.stdout)
         self.ps.wait()
@@ -53,12 +53,13 @@ class systemDetails():
         # print(f"Ram Available: {self.getmem}")
         self.raminuse = "%.2f" % self.raminuse + '%'
 
-        # CPU Percentage Usage
+        """ CPU Percentage Usage """
         self.cpucorecount = psutil.cpu_count(logical=True)
         self.getcpu = psutil.cpu_percent(1)
         self.cpuusge = str(self.getcpu)
         self.cpuusge = self.cpuusge + '%'
 
+        """ Extract the system information to a list """
         self.uname = platform.uname()
         self.systemdetails = [self.uname.system, self.uname.node,
         self.ipaddr, self.uname.release, self.uname.machine,
